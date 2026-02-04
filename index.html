@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Yanuar & Chindy</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #1C1C1C;
+            --sage: #9CAF88;
+            --gold: #C5A059;
+            --text-light: #F2F2F2;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* --- BACKGROUND --- */
+        .bg-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: 
+                linear-gradient(rgba(28, 28, 28, 0.85), rgba(28, 28, 28, 0.85)),
+                url('https://www.transparenttextures.com/patterns/natural-paper.png'),
+                radial-gradient(circle at center, #2c2c2c 0%, #1c1c1c 100%);
+        }
+
+        .leaf {
+            position: fixed; top: -10%; background: var(--sage); opacity: 0.15;
+            border-radius: 100% 0 100% 0; pointer-events: none; z-index: -1;
+            animation: fall linear infinite;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* --- CURTAIN OPENER --- */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .curtain {
+            position: absolute; top: 0; width: 50%; height: 100%;
+            background-color: var(--bg-dark); transition: 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+        .left { left: 0; border-right: 0.5px solid rgba(197, 160, 89, 0.2); }
+        .right { right: 0; }
+
+        .opener-content { position: absolute; z-index: 10000; text-align: center; }
+        .wax-seal {
+            width: 100px; height: 100px; background: var(--gold); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+            margin: 0 auto; transition: 0.3s;
+        }
+        .wax-seal i { font-size: 2.2rem; color: #3d2b1f; }
+
+        /* --- LAYOUT CENTERING --- */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertical Center */
+            align-items: center;     /* Horizontal Center */
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-frame {
+            border: 1px solid var(--gold);
+            padding: 80px 40px;
+            border-radius: 200px 200px 0 0; /* Bingkai Arch */
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(5px);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .names-big {
+            font-family: 'Sacramento', cursive;
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            color: var(--text-light);
+            margin: 15px 0;
+        }
+
+        .names-couple {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--sage);
+            font-weight: 700;
+        }
+
+        .quote-box {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            max-width: 600px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .event-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(156, 175, 136, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn-maps {
+            display: inline-block; margin-top: 30px; padding: 12px 35px;
+            border: 1px solid var(--sage); color: var(--sage);
+            text-decoration: none; font-size: 0.8rem; letter-spacing: 2px;
+            border-radius: 50px; transition: 0.3s;
+        }
+        .btn-maps:hover { background: var(--sage); color: var(--bg-dark); }
+
+        /* Music Button */
+        .music-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
+            background: var(--sage); border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; cursor: pointer; z-index: 100;
+            color: var(--bg-dark); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .spin { animation: spin 5s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        #main-content { opacity: 0; transition: 2s ease; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container"></div>
+
+    <!-- Opener -->
+    <div id="overlay">
+        <div class="curtain left"></div>
+        <div class="curtain right"></div>
+        <div class="opener-content" id="opener">
+            <h2 style="font-family: 'Playfair Display'; letter-spacing: 6px; color: var(--sage); margin-bottom: 15px;">THE WEDDING</h2>
+            <h1 style="font-family: 'Sacramento', cursive; font-size: 3.5rem; margin-bottom: 30px;">Yanuar & Chindy</h1>
+            <div class="wax-seal" onclick="openInvitation()">
+                <i class="fas fa-heart"></i>
+            </div>
+            <p style="margin-top: 25px; font-size: 0.7rem; letter-spacing: 3px; color: var(--gold);">BUKA UNDANGAN</p>
+        </div>
+    </div>
+
+    <!-- Music -->
+    <div class="music-btn" onclick="toggleMusic()">
+        <i id="music-icon" class="fas fa-compact-disc"></i>
+    </div>
+    <audio id="myAudio" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="main-content">
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-frame" data-aos="zoom-out" data-aos-duration="2000">
+                <p style="letter-spacing: 6px; font-size: 0.7rem; color: var(--sage);">THE WEDDING OF</p>
+                <div class="names-big">Yanuar & Chindy</div>
+                <p style="letter-spacing: 4px; font-weight: 300; font-size: 0.85rem;">SABTU, 27 FEBRUARI 2027</p>
+            </div>
+        </section>
+
+        <!-- Quote -->
+        <section>
+            <div class="quote-box" data-aos="fade-up">
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                <p style="margin-top: 20px; font-size: 0.8rem; letter-spacing: 3px; color: var(--sage); font-style: normal;">— QS. AR-RUM: 21 —</p>
+            </div>
+            <div style="margin-top: 50px;" data-aos="fade-up">
+                <p>Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
+                <p style="margin-top: 15px; font-weight: 300; max-width: 600px;">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
+            </div>
+        </section>
+
+        <!-- Profil -->
+        <section>
+            <div data-aos="fade-up">
+                <h2 class="names-couple">Yanuar Syahrul Raihansyah</h2>
+                <p style="font-size: 0.85rem; color: #aaa; margin-top: 10px;">Putra Kedua dari Pasangan</p>
+                <p>Bpk. Nama Ayah & Ibu Nama Ibu</p>
+            </div>
+
+            <div style="font-family: 'Sacramento', cursive; font-size: 4rem; color: var(--gold); margin: 30px 0;" data-aos="zoom-in">&</div>
+
+            <div data-aos="fade-up">
+                <h2 class="names-couple">Chindy Kurnia Maulidya</h2>
+                <p style="font-size: 0.85rem; color: #888; margin-top: 10px;">Putri Pertama dari Pasangan</p>
+                <p>Bpk. Nama Ayah & Ibu Nama Ibu</p>
+            </div>
+        </section>
+
+        <!-- Agenda -->
+        <section>
+            <div class="event-card" data-aos="fade-up">
+                <h2 style="font-family: 'Playfair Display'; letter-spacing: 5px; color: var(--gold); margin-bottom: 30px;">SAVE THE DATE</h2>
+                
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px;">
+                    <div>
+                        <h4 style="color: var(--sage);">AKAD NIKAH</h4>
+                        <p style="margin-top: 5px;">08.00 - 10.00 WIB</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--sage);">RESEPSI</h4>
+                        <p style="margin-top: 5px;">11.00 WIB - Selesai</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <p><strong>LOKASI ACARA</strong></p>
+                    <p style="margin-top: 10px;">Kediaman Mempelai Wanita<br>Kejapanan RT 1 RW 26 Gempol, Pasuruan</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn-maps">BUKA GOOGLE MAPS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section style="min-height: 50vh;">
+            <p style="font-family: 'Sacramento', cursive; font-size: 2.5rem; color: var(--sage);">Terima Kasih</p>
+            <h2 style="letter-spacing: 6px; margin-top: 10px; font-weight: 300;">YANUAR & CHINDY</h2>
+            <p style="margin-top: 40px; font-size: 0.6rem; opacity: 0.3; letter-spacing: 3px;">WEDDING INVITATION © 2027</p>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1500, once: true });
+
+        // Leaves Animation
+        for(let i=0; i<15; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.width = (Math.random() * 10 + 8) + 'px';
+            leaf.style.height = (Math.random() * 15 + 10) + 'px';
+            leaf.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            leaf.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(leaf);
+        }
+
+        const audio = document.getElementById("myAudio");
+        const icon = document.getElementById("music-icon");
+
+        function openInvitation() {
+            document.querySelector(".left").style.transform = "translateX(-100%)";
+            document.querySelector(".right").style.transform = "translateX(100%)";
+            document.getElementById("opener").style.opacity = "0";
+            document.getElementById("opener").style.transform = "scale(1.2)";
+            
+            document.getElementById("main-content").style.opacity = "1";
+            
+            setTimeout(() => {
+                document.getElementById("overlay").style.display = "none";
+                AOS.refresh();
+            }, 1200);
+
+            audio.play();
+            icon.classList.add("spin");
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                icon.classList.add("spin");
+            } else {
+                audio.pause();
+                icon.classList.remove("spin");
+            }
+        }
+    </script>
+</body>
+</html>
